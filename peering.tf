@@ -1,6 +1,6 @@
 resource "aws_vpc_peering_connection" "peering" {
   count = var.is_peering_required ? 1 : 0 # using count condition we can restrict peering 
-  vpc_id        = aws_vpc.roboshop_vpc.id #requester vpc
+  vpc_id        = aws_vpc.main.id #requester vpc
   peer_vpc_id = var.acceptor_vpc_id == "" ? data.aws_vpc.default.id : var.acceptor_vpc_id #pacceptor vpc if acceptor not give vpc take default vpc id using conditions
   auto_accept = var.acceptor_vpc_id == "" ? true : false #if default vpc it our control
   tags = merge(
